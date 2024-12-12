@@ -9,29 +9,46 @@ stones = [int(x) for x in IN.split()]
 cache = defaultdict(defaultdict)
 
 def blink(stones, blinks):
-    if blinks == 0:
-        return len(stones)
+    # if blinks == 0:
+    #     return 1
 
     count = 0
     for stone in stones:
         if stone in cache[blinks]:
             count += cache[blinks][stone]
         elif stone == 0:
-            count += blink([1], blinks -1)
+            if blinks == 1:
+                count += 1
+            else:
+                i = blink([1], blinks -1)
+                cache[blinks][stone] = i
+                count += i
         elif len(str(stone)) % 2 == 0:
-            s = str(stone)
-            mid = int(len(s)/2)
-            left, right = s[:mid], s[mid:]
-            count += blink([int(left)],blinks -1)
-            count += blink([int(right)],blinks -1)
+            if blinks == 1:
+                count += 2
+            else:
+                s = str(stone)
+                mid = int(len(s)/2)
+                left, right = s[:mid], s[mid:]
+                i = blink([int(left)],blinks -1)
+                # cache[blinks][left] = i
+                count += i
+
+                i = blink([int(right)],blinks -1)
+                # cache[blinks][right] = i
+                count += i
+
         else:
-            i  = blink([stone * 2024], blinks -1)
-            cache[blinks][stone] = i
-            count += i
+            if blinks == 1:
+                count += 1
+            else:
+                i  = blink([stone * 2024], blinks -1)
+                cache[blinks][stone] = i
+                count += i
 
     return count
 
-print(timeit.timeit(lambda: print(blink(test, 6), end=" "), number=1), 'ms')
-print(timeit.timeit(lambda: print(blink(test, 25), end=" "), number=1), 'ms')
-print(timeit.timeit(lambda: print(blink(stones, 25), end=" "), number=1), 'ms')
-print(timeit.timeit(lambda: print(blink(stones, 75), end=" "), number=1), 'ms')
+print(timeit.timeit(lambda: print(blink(test, 6), end=" "), number=1)*1000, 'ms')
+print(timeit.timeit(lambda: print(blink(test, 25), end=" "), number=1)*1000, 'ms')
+print(timeit.timeit(lambda: print(blink(stones, 25), end=" "), number=1)*1000, 'ms')
+print(timeit.timeit(lambda: print(blink(stones, 75), end=" "), number=1)*1000, 'ms')
