@@ -72,24 +72,24 @@ hallway = robots_to_hallway(robots, T, W)
 import os
 
 i=0
-while True:
-    i+=1
-    for j, robot in enumerate(robots):
-        x,y,h,v = robots[j]
+# while True:
+#     i+=1
+#     for j, robot in enumerate(robots):
+#         x,y,h,v = robots[j]
 
-        x = (x + h) % W
-        y = (y + v) % T
-        # print(x,y)
-        robots[j] = (x,y,h,v)
+#         x = (x + h) % W
+#         y = (y + v) % T
+#         # print(x,y)
+#         robots[j] = (x,y,h,v)
 
-    if i == 7603:
-        os.system('clear')
-        hallway = robots_to_hallway(robots, T, W)
-        printgrid(hallway)
+#     if i == 7603:
+#         os.system('clear')
+#         hallway = robots_to_hallway(robots, T, W)
+#         printgrid(hallway)
 
-        break
+#         break
 
-sys.exit(0)
+# sys.exit(0)
 
 # time.sleep(1)
 card = []
@@ -107,14 +107,15 @@ while True:
 
     hallway = robots_to_hallway(robots, T, W)
     for line in hallway:
-        if i % 103 == 84:
+        if i % 101 == 28:
+        # if i % 103 == 84:
         # if sum(line) == 32:
             os.system('clear')
             printgrid(hallway)
             import time
             card.append(i)
             print(card)
-            time.sleep(0.5)
+            time.sleep(0.2)
             break
 
 
